@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: May 16, 2020 at 11:53 AM
--- Server version: 5.7.24
--- PHP Version: 7.2.19
+-- Host: 127.0.0.1
+-- Generation Time: May 20, 2020 at 08:19 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,29 +18,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `knn`
+-- Database: `taksonomi`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `bergerak`
---
-
-CREATE TABLE `bergerak` (
-  `gerak_id` int(11) NOT NULL,
-  `gerak_detail` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `bergerak`
---
-
-INSERT INTO `bergerak` (`gerak_id`, `gerak_detail`) VALUES
-(1, 'Flagella'),
-(2, 'Tidak'),
-(3, 'silia'),
-(4, 'taksis');
 
 -- --------------------------------------------------------
 
@@ -74,6 +52,14 @@ CREATE TABLE `dinding_sel` (
   `detail_dinding_sel` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `dinding_sel`
+--
+
+INSERT INTO `dinding_sel` (`id_dinding_sel`, `detail_dinding_sel`) VALUES
+(1, 'Ya'),
+(2, 'Tidak');
+
 -- --------------------------------------------------------
 
 --
@@ -90,12 +76,11 @@ CREATE TABLE `hasil` (
 --
 
 INSERT INTO `hasil` (`hasil_id`, `hasil_detail`) VALUES
-(1, 'Manusia'),
-(2, 'Hewan'),
-(3, 'Tumbuhan'),
-(4, 'Jamur'),
-(5, 'Bakteri'),
-(6, 'Protista');
+(1, 'Hewan'),
+(2, 'Tumbuhan'),
+(3, 'Jamur'),
+(4, 'Bakteri'),
+(5, 'Protista');
 
 -- --------------------------------------------------------
 
@@ -116,7 +101,7 @@ INSERT INTO `hidup` (`hidup_id`, `hidup_detail`) VALUES
 (1, 'Darat'),
 (2, 'Air'),
 (3, 'Both'),
-(4, 'extreme environment');
+(4, 'Extreme Environment');
 
 -- --------------------------------------------------------
 
@@ -164,17 +149,30 @@ INSERT INTO `mikroskopis` (`id_mikroskopis`, `detail_mikroskopis`) VALUES
 
 CREATE TABLE `pendataan` (
   `data_id` int(11) NOT NULL,
-  `nama spesies` varchar(100) NOT NULL,
-  `gerak_id` int(11) NOT NULL,
+  `nama_spesies` varchar(100) NOT NULL,
   `napas_id` int(11) NOT NULL,
   `kembang_id` int(11) NOT NULL,
   `hidup_id` int(11) NOT NULL,
-  `hasil_id` int(11) NOT NULL,
   `nutri_id` int(11) NOT NULL,
   `dinding_sel_id` int(11) NOT NULL,
   `inti_sel_id` int(11) NOT NULL,
-  `mikroskopis_id` int(11) NOT NULL
+  `mikroskopis_id` int(11) NOT NULL,
+  `hasil_id` int(11) NOT NULL,
+  `cek` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pendataan`
+--
+
+INSERT INTO `pendataan` (`data_id`, `nama_spesies`, `napas_id`, `kembang_id`, `hidup_id`, `nutri_id`, `dinding_sel_id`, `inti_sel_id`, `mikroskopis_id`, `hasil_id`, `cek`) VALUES
+(1, 'Oryza Sativa', 3, 4, 1, 1, 1, 1, 2, 2, 0),
+(2, 'E Coli', 4, 5, 4, 2, 1, 2, 1, 4, 0),
+(3, 'Gnetum Gnemon', 3, 4, 1, 1, 1, 1, 2, 2, 0),
+(4, 'Marchantia Polymorpha', 3, 6, 1, 1, 1, 1, 2, 2, 0),
+(5, 'Paramecium Chaudatum', 4, 5, 2, 2, 2, 1, 1, 5, 0),
+(6, 'Oscillatoria Princeps', 4, 5, 2, 1, 1, 2, 1, 4, 0),
+(7, 'Euglena Viridis', 4, 5, 2, 3, 2, 1, 1, 5, 0);
 
 -- --------------------------------------------------------
 
@@ -195,10 +193,9 @@ INSERT INTO `reproduksi` (`kembang_id`, `kembang_detail`) VALUES
 (1, 'Ovipar'),
 (2, 'Vivipar'),
 (3, 'Ovovivipar'),
-(4, 'Tunas'),
-(5, 'Berbiji'),
-(6, 'pembelahan biner'),
-(7, 'spora');
+(4, 'Berbiji'),
+(5, 'Membelah Diri'),
+(6, 'Spora');
 
 -- --------------------------------------------------------
 
@@ -219,17 +216,11 @@ INSERT INTO `respirasi` (`napas_id`, `napas_detail`) VALUES
 (1, 'Insang'),
 (2, 'Paru-Paru'),
 (3, 'Stomata'),
-(4, 'difusi sel');
+(4, 'Difusi Sel');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `bergerak`
---
-ALTER TABLE `bergerak`
-  ADD PRIMARY KEY (`gerak_id`);
 
 --
 -- Indexes for table `cara_penuh_nutrisi`
@@ -272,7 +263,6 @@ ALTER TABLE `mikroskopis`
 --
 ALTER TABLE `pendataan`
   ADD PRIMARY KEY (`data_id`),
-  ADD KEY `fkBergerak` (`gerak_id`),
   ADD KEY `fkHasil` (`hasil_id`),
   ADD KEY `fkBernapas` (`napas_id`),
   ADD KEY `fkBerkembangBiak` (`kembang_id`),
@@ -299,12 +289,6 @@ ALTER TABLE `respirasi`
 --
 
 --
--- AUTO_INCREMENT for table `bergerak`
---
-ALTER TABLE `bergerak`
-  MODIFY `gerak_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
 -- AUTO_INCREMENT for table `cara_penuh_nutrisi`
 --
 ALTER TABLE `cara_penuh_nutrisi`
@@ -314,7 +298,7 @@ ALTER TABLE `cara_penuh_nutrisi`
 -- AUTO_INCREMENT for table `dinding_sel`
 --
 ALTER TABLE `dinding_sel`
-  MODIFY `id_dinding_sel` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_dinding_sel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `hasil`
@@ -344,7 +328,7 @@ ALTER TABLE `mikroskopis`
 -- AUTO_INCREMENT for table `pendataan`
 --
 ALTER TABLE `pendataan`
-  MODIFY `data_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `data_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `reproduksi`
@@ -366,7 +350,6 @@ ALTER TABLE `respirasi`
 -- Constraints for table `pendataan`
 --
 ALTER TABLE `pendataan`
-  ADD CONSTRAINT `fkBergerak` FOREIGN KEY (`gerak_id`) REFERENCES `bergerak` (`gerak_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fkBerkembangBiak` FOREIGN KEY (`kembang_id`) REFERENCES `reproduksi` (`kembang_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fkBernapas` FOREIGN KEY (`napas_id`) REFERENCES `respirasi` (`napas_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fkHasil` FOREIGN KEY (`hasil_id`) REFERENCES `hasil` (`hasil_id`) ON DELETE CASCADE ON UPDATE CASCADE,
