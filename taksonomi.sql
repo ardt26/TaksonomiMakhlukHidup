@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: May 21, 2020 at 08:51 AM
--- Server version: 5.7.24
--- PHP Version: 7.2.19
+-- Host: 127.0.0.1
+-- Generation Time: May 21, 2020 at 06:58 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -38,9 +37,9 @@ CREATE TABLE `cara_penuh_nutrisi` (
 --
 
 INSERT INTO `cara_penuh_nutrisi` (`id_nutrisi`, `detail_nutrisi`) VALUES
-(1, 'autotrof'),
-(2, 'heterotrof'),
-(3, 'mixotrof');
+(1, 'Autotrof'),
+(2, 'Heterotrof'),
+(3, 'Mixotrof');
 
 -- --------------------------------------------------------
 
@@ -120,8 +119,8 @@ CREATE TABLE `inti_sel` (
 --
 
 INSERT INTO `inti_sel` (`id_inti_sel`, `detail_inti_sel`) VALUES
-(1, 'ada (eukariot)'),
-(2, 'tidak ada (prokariot)');
+(1, 'Ada (Eukariot)'),
+(2, 'Tidak (Prokariot)');
 
 -- --------------------------------------------------------
 
@@ -139,8 +138,8 @@ CREATE TABLE `mikroskopis` (
 --
 
 INSERT INTO `mikroskopis` (`id_mikroskopis`, `detail_mikroskopis`) VALUES
-(1, 'iya'),
-(2, 'tidak');
+(1, 'Ya'),
+(2, 'Tidak');
 
 -- --------------------------------------------------------
 
@@ -159,7 +158,7 @@ CREATE TABLE `pendataan` (
   `inti_sel_id` int(11) NOT NULL,
   `mikroskopis_id` int(11) NOT NULL,
   `hasil_id` int(11) NOT NULL,
-  `cek` tinyint(1) NOT NULL DEFAULT '1'
+  `cek` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -174,9 +173,15 @@ INSERT INTO `pendataan` (`data_id`, `nama_spesies`, `napas_id`, `kembang_id`, `h
 (5, 'Paramecium Chaudatum', 4, 5, 2, 2, 2, 1, 1, 5, 0),
 (6, 'Oscillatoria Princeps', 4, 5, 2, 1, 1, 2, 1, 4, 0),
 (7, 'Euglena Viridis', 4, 5, 2, 3, 2, 1, 1, 5, 0),
-(8, 'Auricularia polytricha', 4, 6, 1, 2, 1, 1, 2, 3, 0),
-(9, 'Batrachochytrium dendrobatidis', 4, 6, 3, 2, 1, 1, 1, 3, 0),
-(10, 'Dugesia subtentaculata', 4, 5, 2, 2, 2, 1, 2, 1, 0);
+(8, 'Auricularia Polytricha', 4, 6, 1, 2, 1, 1, 2, 3, 0),
+(9, 'Batrachochytrium Dendrobatidis', 4, 6, 3, 2, 1, 1, 1, 3, 0),
+(10, 'Dugesia Subtentaculata', 4, 5, 2, 2, 2, 1, 2, 1, 0),
+(11, 'Homo Sapiens', 2, 2, 1, 2, 2, 1, 2, 1, 0),
+(12, 'Cetorhinus Maximus', 1, 3, 2, 2, 2, 1, 2, 1, 0),
+(13, 'Cardinalis Cardinalis', 2, 1, 1, 2, 2, 1, 2, 1, 1),
+(14, 'Nitosomonas Halophila', 4, 5, 1, 1, 1, 2, 1, 4, 0),
+(15, 'Pfiesteria Shumwayae', 4, 5, 2, 3, 1, 1, 1, 5, 1),
+(16, 'Rhizopus Oryzae', 4, 6, 1, 2, 1, 1, 2, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -332,7 +337,7 @@ ALTER TABLE `mikroskopis`
 -- AUTO_INCREMENT for table `pendataan`
 --
 ALTER TABLE `pendataan`
-  MODIFY `data_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `data_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `reproduksi`
