@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 20, 2020 at 08:19 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.5
+-- Host: localhost:3306
+-- Generation Time: May 21, 2020 at 08:51 AM
+-- Server version: 5.7.24
+-- PHP Version: 7.2.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -158,7 +159,7 @@ CREATE TABLE `pendataan` (
   `inti_sel_id` int(11) NOT NULL,
   `mikroskopis_id` int(11) NOT NULL,
   `hasil_id` int(11) NOT NULL,
-  `cek` tinyint(1) NOT NULL DEFAULT 1
+  `cek` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -172,7 +173,10 @@ INSERT INTO `pendataan` (`data_id`, `nama_spesies`, `napas_id`, `kembang_id`, `h
 (4, 'Marchantia Polymorpha', 3, 6, 1, 1, 1, 1, 2, 2, 0),
 (5, 'Paramecium Chaudatum', 4, 5, 2, 2, 2, 1, 1, 5, 0),
 (6, 'Oscillatoria Princeps', 4, 5, 2, 1, 1, 2, 1, 4, 0),
-(7, 'Euglena Viridis', 4, 5, 2, 3, 2, 1, 1, 5, 0);
+(7, 'Euglena Viridis', 4, 5, 2, 3, 2, 1, 1, 5, 0),
+(8, 'Auricularia polytricha', 4, 6, 1, 2, 1, 1, 2, 3, 0),
+(9, 'Batrachochytrium dendrobatidis', 4, 6, 3, 2, 1, 1, 1, 3, 0),
+(10, 'Dugesia subtentaculata', 4, 5, 2, 2, 2, 1, 2, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -304,7 +308,7 @@ ALTER TABLE `dinding_sel`
 -- AUTO_INCREMENT for table `hasil`
 --
 ALTER TABLE `hasil`
-  MODIFY `hasil_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `hasil_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `hidup`
@@ -328,13 +332,13 @@ ALTER TABLE `mikroskopis`
 -- AUTO_INCREMENT for table `pendataan`
 --
 ALTER TABLE `pendataan`
-  MODIFY `data_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `data_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `reproduksi`
 --
 ALTER TABLE `reproduksi`
-  MODIFY `kembang_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `kembang_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `respirasi`
