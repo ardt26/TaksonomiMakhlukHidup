@@ -18,6 +18,7 @@ class TControl extends CI_Controller {
 		$i = 0;
 		$hasil[] = 0;
 		$data3[][] = 0;
+		$index[] = 0;
 		foreach ($row as $datas) :
 			$hasil[$i] =	sqrt(pow((double)$datas->napas_id - $napas,2) +
 							pow((double)$datas->kembang_id - $reproduksi,2) +
@@ -26,6 +27,8 @@ class TControl extends CI_Controller {
 							pow((double)$datas->dinding_sel_id - $dinding,2) +
 							pow((double)$datas->inti_sel_id - $inti,2) +
 							pow((double)$datas->mikroskopis_id - $mikro,2));
+			$index[$i] = $i;
+
 			$data3[$i][0] = $datas->nama_spesies;
 			$data3[$i][1] = $datas->napas_id;
 			$data3[$i][2] = $datas->kembang_id;
@@ -37,16 +40,42 @@ class TControl extends CI_Controller {
 			$data3[$i][8] = $datas->hasil_id;
 			$i++;
 		endforeach;
-		$min = $hasil[0];
-		$index = 0;
+
 		for ($j = 0; $j < $i; $j++){
-			if($min > $hasil[$j]){
-				$min = $hasil[$j];
-				$index = $j;
+			for ($k = $j+1; $k < $i; $k++) {
+				if ($hasil[$j] > $hasil[$k]) {
+					$temp = $hasil[$j];
+					$hasil[$j] = $hasil[$k];
+					$hasil[$k] = $temp;
+
+					$temp2 = $index[$j];
+					$index[$j] = $index[$k];
+					$index[$k] = $temp2;
+				}
 			}
 		}
-		$hasilAkhir = $data3[$index][8];
-		$data= array(
+
+		for ($j = 0; $j < 3; $j++){
+			$banyak[$j] = 0;
+			for ($k = 0; $k < 3; $k++){
+				if ($hasil[$j] == $hasil[$k]){
+					$banyak[$j]++;
+				}
+			}
+		}
+
+		$nilaiMax = $banyak[0];
+		$indexMax = 0;
+		for ($j = 0; $j < 3; $j++){
+			if ($banyak[$j] > $nilaiMax){
+				$nilaiMax = $banyak[$j];
+				$indexMax = $j;
+			}
+		}
+
+		$hasilAkhir = $data3[$indexMax][8];
+
+		$datax= array(
 			'nama_spesies'		=> $nama,
 			'napas_id'			=> $napas,
 			'kembang_id'		=> $reproduksi,
@@ -56,7 +85,8 @@ class TControl extends CI_Controller {
 			'inti_sel_id'		=> $inti,
 			'mikroskopis_id'	=> $mikro,
 			'hasil_id'			=> $hasilAkhir);
-		$this->TModel->create($data);
+		$this->TModel->create($datax);
+
 		$data['hasil']= array(
 			'nama_spesies'		=> $nama,
 			'napas_id'			=> $napas,
@@ -90,6 +120,7 @@ class TControl extends CI_Controller {
 
 	public function newData(){
 		$data['datas'] = $this->TModel->getAllData(1);
+		$data['hasil'] = $this->TModel->getDataByTableName("hasil");
 		$this->load->view('view/new_data',$data);
 	}
 }
