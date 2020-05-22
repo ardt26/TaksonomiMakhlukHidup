@@ -51,6 +51,10 @@ class TControl extends CI_Controller {
 					$temp2 = $index[$j];
 					$index[$j] = $index[$k];
 					$index[$k] = $temp2;
+
+					$temp2 = $data3[$j];
+					$data3[$j] = $data3[$k];
+					$data3[$k] = $temp2;
 				}
 			}
 		}
